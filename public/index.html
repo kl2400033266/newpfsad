@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS04 - Domestic Violence Support and Legal Aid System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface-soft: #f8fbff;
+            --text: #233142;
+            --text-muted: #5f6f82;
+            --primary: #2f5d8a;
+            --primary-hover: #244a6d;
+            --accent: #7aa7c7;
+            --success: #2f7d5c;
+            --danger: #a04040;
+            --border: #d7e3ee;
+            --shadow: 0 16px 40px rgba(41, 73, 111, 0.12);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at top left, #ecf5ff 0%, transparent 40%),
+                        radial-gradient(circle at top right, #eef9f4 0%, transparent 35%),
+                        var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        .container {
+            width: min(1080px, 92vw);
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 16px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        main {
+            padding: 32px 0;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin: 16px auto;
+            max-width: 1080px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 48px rgba(41, 73, 111, 0.14);
+        }
+
+        .title {
+            font-size: 1.9rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 70ch;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .hero-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .demo-hero-panel {
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: linear-gradient(180deg, #fbfdff 0%, #f4f8fc 100%);
+            padding: 18px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .demo-stat {
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid var(--border);
+            display: grid;
+            gap: 4px;
+        }
+
+        .demo-stat-label {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+        }
+
+        .demo-stat-value {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 24px rgba(47, 93, 138, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(47, 93, 138, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f8ff 100%);
+        }
+
+        .feature-card h4 {
+            margin: 0 0 8px;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+            padding: 16px;
+            box-shadow: 0 10px 26px rgba(41, 73, 111, 0.06);
+        }
+
+        .card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .card-head h4 {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .role-chip {
+            border-radius: 999px;
+            background: #edf5fb;
+            color: var(--primary);
+            border: 1px solid #d5e5f3;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .cred-item {
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .cred-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        .cred-value {
+            margin: 4px 0 0;
+            font-weight: 700;
+            color: var(--text);
+            font-family: monospace;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2d5a3d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .status-badge.live {
+            background: #c8e6c9;
+            color: #1b5e20;
+        }
+
+        ul {
+            margin-left: 20px;
+            color: var(--text-muted);
+            display: grid;
+            gap: 8px;
+        }
+
+        @media (max-width: 720px) {
+            .hero-card {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .title {
+                font-size: 1.4rem;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">PS04 - DV Support System</div>
+        <div class="header-actions">
+            <button onclick="window.open('https://ps04-dv-support.onrender.com', '_blank')">Live App</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Hero Section -->
+            <div class="card hero-card">
+                <div>
+                    <h1 class="title">PS04 - Domestic Violence Support and Legal Aid System</h1>
+                    <p class="subtitle">A secure, role-based platform connecting survivors of domestic violence with professional counselors and legal advisors. Access confidential support, resources, and legal guidance in a safe environment.</p>
+                </div>
+                <div class="demo-hero-panel">
+                    <div class="demo-stat">
+                        <span class="demo-stat-label">Status</span>
+                        <span class="demo-stat-value" style="color: #2f7d5c;">🟢 Live</span>
+                    </div>
+                    <div class="demo-stat">
+                        <span class="demo-stat-label">Backend</span>
+                        <span class="demo-stat-value">Render</span>
+                    </div>
+                    <div class="demo-stat">
+                        <span class="demo-stat-label">Frontend</span>
+                        <span class="demo-stat-value">Vercel</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <a href="https://ps04-dv-support.onrender.com" class="cta-button">➜ Access Live Application</a>
+            </div>
+
+            <!-- Features -->
+            <div class="card">
+                <h2 class="section-title">Core Features</h2>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <h4>🔒 Secure Requests</h4>
+                        <p>Confidential help requests with end-to-end secure workflows</p>
+                    </article>
+                    <article class="feature-card">
+                        <h4>👥 Role-Based Access</h4>
+                        <p>Admin, Survivor, Counsellor, and Legal Advisor roles</p>
+                    </article>
+                    <article class="feature-card">
+                        <h4>💬 Private Chat</h4>
+                        <p>Case-based messaging between survivors and professionals</p>
+                    </article>
+                    <article class="feature-card">
+                        <h4>📋 Case Management</h4>
+                        <p>Assignment and tracking of survivor queries</p>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Demo Accounts -->
+            <div class="card">
+                <h2 class="section-title">Demo Accounts</h2>
+                <p class="subtitle">Test with these accounts on the live application:</p>
+                <div class="grid">
+                    <article class="card-item">
+                        <div class="card-head">
+                            <h4>Admin</h4>
+                            <span class="role-chip">ADMIN</span>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Username</div>
+                            <div class="cred-value">Mohan</div>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Password</div>
+                            <div class="cred-value">Mohan2006@</div>
+                        </div>
+                        <p style="margin-top: 12px; color: var(--text-muted); font-size: 0.9rem;">System admin & case management</p>
+                    </article>
+
+                    <article class="card-item">
+                        <div class="card-head">
+                            <h4>Survivor</h4>
+                            <span class="role-chip">SURVIVOR</span>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Username</div>
+                            <div class="cred-value">raju</div>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Password</div>
+                            <div class="cred-value">common</div>
+                        </div>
+                        <p style="margin-top: 12px; color: var(--text-muted); font-size: 0.9rem;">Submit help requests</p>
+                    </article>
+
+                    <article class="card-item">
+                        <div class="card-head">
+                            <h4>Counsellor</h4>
+                            <span class="role-chip">COUNSELLOR</span>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Username</div>
+                            <div class="cred-value">Karthik</div>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Password</div>
+                            <div class="cred-value">common</div>
+                        </div>
+                        <p style="margin-top: 12px; color: var(--text-muted); font-size: 0.9rem;">Review assigned cases</p>
+                    </article>
+
+                    <article class="card-item">
+                        <div class="card-head">
+                            <h4>Legal Advisor</h4>
+                            <span class="role-chip">LEGAL</span>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Username</div>
+                            <div class="cred-value">nakul</div>
+                        </div>
+                        <div class="cred-item">
+                            <div class="cred-label">Password</div>
+                            <div class="cred-value">common</div>
+                        </div>
+                        <p style="margin-top: 12px; color: var(--text-muted); font-size: 0.9rem;">Provide legal guidance</p>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Deployment Info -->
+            <div class="card">
+                <h2 class="section-title">Deployment Architecture</h2>
+                <ul>
+                    <li><strong>Frontend:</strong> Vercel (this site)</li>
+                    <li><strong>Backend:</strong> Django on Render (Live API)</li>
+                    <li><strong>Database:</strong> PostgreSQL on Render</li>
+                    <li><strong>Authentication:</strong> Django custom user model with roles</li>
+                </ul>
+            </div>
+
+            <!-- Technical Stack -->
+            <div class="card">
+                <h2 class="section-title">Technical Stack</h2>
+                <ul>
+                    <li><strong>Backend:</strong> Django 6.0.2</li>
+                    <li><strong>Frontend:</strong> HTML/CSS/JavaScript (Vercel)</li>
+                    <li><strong>Database:</strong> PostgreSQL</li>
+                    <li><strong>Web Server:</strong> Gunicorn</li>
+                    <li><strong>Static Files:</strong> WhiteNoise</li>
+                </ul>
+            </div>
+
+            <!-- Links -->
+            <div class="card" style="text-align: center;">
+                <h3 class="section-title">Resources</h3>
+                <p>
+                    <a href="https://ps04-dv-support.onrender.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">🔗 Live Application →</a>
+                </p>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-muted);">
+                    GitHub: <code>github.com/kl2400033266/newpfsad</code>
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
